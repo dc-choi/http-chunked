@@ -1,11 +1,11 @@
 package com.server.chucked.api;
 
 import com.server.chucked.application.ApiService;
+import com.server.chucked.dto.MyObject;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
 
 import java.util.ArrayList;
@@ -19,10 +19,11 @@ public class ApiController {
 
     @GetMapping(produces = MediaType.TEXT_PLAIN_VALUE)
     public StreamingResponseBody getChuck() {
-        return outputStream -> {
-            byte[] bytes = apiService.getChuck().getBytes();
+        byte[] bytes = apiService.getChuck().getBytes();
 
+        return outputStream -> {
             List<Byte> byteList = new ArrayList<>();
+
             for (byte aByte : bytes) {
                 byteList.add(aByte);
             }
@@ -32,5 +33,13 @@ public class ApiController {
                 outputStream.flush();
             }
         };
+    }
+
+    @GetMapping("{id}")
+    public ResponseEntity<String> myMethod(@PathVariable("id") Long id, @ModelAttribute MyObject myObject) {
+        System.out.println(id);
+        System.out.println(myObject);
+
+        return ResponseEntity.ok("");
     }
 }
