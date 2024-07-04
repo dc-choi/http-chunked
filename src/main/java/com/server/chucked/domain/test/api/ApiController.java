@@ -1,7 +1,7 @@
-package com.server.chucked.api;
+package com.server.chucked.domain.test.api;
 
-import com.server.chucked.application.ApiService;
-import com.server.chucked.dto.MyObject;
+import com.server.chucked.domain.test.application.ApiService;
+import com.server.chucked.domain.test.dto.MyObject;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;

@@ -1,4 +1,4 @@
-package com.server.chucked.application;
+package com.server.chucked.domain.test.application;
 
 import org.springframework.stereotype.Service;
 
