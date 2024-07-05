@@ -2,7 +2,6 @@ package com.server.chucked.global.exception;
 
 import com.server.chucked.global.common.response.ErrorResponse;
 import com.server.chucked.global.common.response.HttpResponse;
-import com.server.chucked.global.common.util.Util;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.ValidationException;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import javax.security.auth.login.AccountExpiredException;
 import java.nio.file.AccessDeniedException;
-import java.util.Arrays;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -41,10 +39,17 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorResponse> handleBindException(MethodArgumentNotValidException e, HttpServletRequest request) {
+       StringBuilder message = new StringBuilder();
+
+        e.getFieldErrors().forEach(fieldError -> {
+            message.append(fieldError.getDefaultMessage()).append(',');
+        });
+        message.deleteCharAt(message.length() - 1); // 마지막 , 제거
+
         return ResponseEntity
                 .status(HttpResponse.Fail.INVALID_INPUT_VALUE.getStatus())
                 .body(ErrorResponse.of(
-                        Util.extractMessage(Arrays.toString(e.getDetailMessageArguments())),
+                        message.toString(),
                         request
                 ));
     }
