@@ -1,3 +1,19 @@
 spring:
   application:
     name: chucked
+  profiles:
+    active: local
+    group:
+      local:
+        - file
+        - secret
+logging:
+  level:
+    root: info
+    com.server.chucked: info
+    org.springframework.web: debug
+    org.hibernate.SQL: debug
+    # org.hibernate.type: debug
+    org.hibernate.orm.jdbc.bind: trace
+    # org.hibernate.orm.jdbc.extract: trace
+    # org.springframework.transaction.interceptor: trace

@@ -1,7 +1,7 @@
 package com.server.chucked.global.exception;
 
 import com.server.chucked.global.common.response.ErrorResponse;
-import com.server.chucked.global.common.response.HttpResponse;
+import com.server.chucked.global.common.response.HttpMessage;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.ValidationException;
 import org.springframework.http.ResponseEntity;
@@ -44,10 +44,10 @@ public class GlobalExceptionHandler {
         e.getFieldErrors().forEach(fieldError -> {
             message.append(fieldError.getDefaultMessage()).append(',');
         });
-        message.deleteCharAt(message.length() - 1); // 마지막 , 제거
+        message.deleteCharAt(message.length() - 1); // 마지막 ',' 제거
 
         return ResponseEntity
-                .status(HttpResponse.Fail.INVALID_INPUT_VALUE.getStatus())
+                .status(HttpMessage.Fail.INVALID_INPUT_VALUE.getStatus())
                 .body(ErrorResponse.of(
                         message.toString(),
                         request
@@ -65,14 +65,14 @@ public class GlobalExceptionHandler {
             AccessDeniedException.class
     })
     public ResponseEntity<ErrorResponse> handleHttpException(Exception e, HttpServletRequest request) {
-        HttpResponse.Fail response;
+        HttpMessage.Fail response;
 
         String exceptionName = e.getClass().getSimpleName();
         switch (exceptionName) {
-            case "HttpRequestMethodNotSupportedException" -> response = HttpResponse.Fail.METHOD_NOT_ALLOWED;
-            case "AccessDeniedException" -> response = HttpResponse.Fail.DEACTIVATE_USER;
-            case "MissingServletRequestParameterException" -> response = HttpResponse.Fail.MISSING_PARAMETER;
-            default -> response = HttpResponse.Fail.BAD_REQUEST;
+            case "HttpRequestMethodNotSupportedException" -> response = HttpMessage.Fail.METHOD_NOT_ALLOWED;
+            case "AccessDeniedException" -> response = HttpMessage.Fail.DEACTIVATE_USER;
+            case "MissingServletRequestParameterException" -> response = HttpMessage.Fail.MISSING_PARAMETER;
+            default -> response = HttpMessage.Fail.BAD_REQUEST;
         }
 
         return ResponseEntity
@@ -97,16 +97,16 @@ public class GlobalExceptionHandler {
 //            UsernameNotFoundException.class
     })
     public ResponseEntity<ErrorResponse> handleSecurityException(Exception e, HttpServletRequest request) {
-        HttpResponse.Fail response;
+        HttpMessage.Fail response;
 
         String exceptionName = e.getClass().getSimpleName();
         switch (exceptionName) {
             case "AuthenticationCredentialsNotFoundException", "BadCredentialsException" ->
-                    response = HttpResponse.Fail.INVALID_TOKEN;
-            case "AccountExpiredException", "CredentialsExpiredException" -> response = HttpResponse.Fail.EXPIRED_TOKEN;
+                    response = HttpMessage.Fail.INVALID_TOKEN;
+            case "AccountExpiredException", "CredentialsExpiredException" -> response = HttpMessage.Fail.EXPIRED_TOKEN;
             case "AccountStatusException", "OAuth2AuthenticationException", "UsernameNotFoundException" ->
-                    response = HttpResponse.Fail.INVALID_ACCOUNT;
-            default -> response = HttpResponse.Fail.UNAUTHORIZED;
+                    response = HttpMessage.Fail.INVALID_ACCOUNT;
+            default -> response = HttpMessage.Fail.UNAUTHORIZED;
         }
 
         return ResponseEntity
@@ -123,9 +123,9 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handlerAllException(Exception e, HttpServletRequest request) {
         return ResponseEntity
-                .status(HttpResponse.Fail.INTERNAL_SERVER_ERROR.getStatus())
+                .status(HttpMessage.Fail.INTERNAL_SERVER_ERROR.getStatus())
                 .body(ErrorResponse.of(
-                        HttpResponse.Fail.INTERNAL_SERVER_ERROR.getMessage(),
+                        HttpMessage.Fail.INTERNAL_SERVER_ERROR.getMessage(),
                         request,
                         e
                 ));

@@ -1,6 +1,6 @@
 package com.server.chucked.global.exception;
 
-import com.server.chucked.global.common.response.HttpResponse;
+import com.server.chucked.global.common.response.HttpMessage;
 import lombok.*;
 import org.springframework.http.HttpStatus;
 
@@ -13,7 +13,7 @@ public class BusinessException extends RuntimeException {
     private String message;
 
     @Builder
-    public BusinessException(HttpResponse.Fail response) {
+    public BusinessException(HttpMessage.Fail response) {
         super(response.getMessage());
         this.status = response.getStatus();
         this.message = response.getMessage();

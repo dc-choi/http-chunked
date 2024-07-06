@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 
-public class HttpResponse {
+public class HttpMessage {
     @Getter
     @RequiredArgsConstructor
     public enum Success {

@@ -1,4 +1,4 @@
-package com.server.chucked.domain.test.dto;
+package com.server.chucked.api.product.presentation.dto;
 
 import lombok.*;
 

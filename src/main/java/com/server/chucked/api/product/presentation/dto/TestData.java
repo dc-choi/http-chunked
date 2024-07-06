@@ -1,6 +1,6 @@
-package com.server.chucked.domain.test.dto;
+package com.server.chucked.api.product.presentation.dto;
 
-import com.server.chucked.domain.test.vaild.CustomText;
+import com.server.chucked.api.product.presentation.vaildation.CustomName;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
@@ -16,6 +16,6 @@ public class TestData {
     String name;
 
     @NotNull(message = "text는 필수 값 입니다.")
-    @CustomText
+    @CustomName
     String text;
 }
