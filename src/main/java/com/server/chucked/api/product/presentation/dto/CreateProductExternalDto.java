@@ -2,8 +2,10 @@ package com.server.chucked.api.product.presentation.dto;
 
 import com.server.chucked.api.product.presentation.vaildation.CustomName;
 import jakarta.validation.constraints.NotNull;
-import lombok.Builder;
 
+/**
+ * Endpoint 1개당 DTO 1개
+ */
 public record CreateProductExternalDto() {
     public record Request(
             @NotNull(message = "name은 필수 값 입니다.")
@@ -12,6 +14,5 @@ public record CreateProductExternalDto() {
             Long price
     ) {}
 
-    @Builder
-    public record Response(String name, Long price, String comment) {}
+    public record Response(String name, Long price) {}
 }

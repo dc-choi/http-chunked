@@ -4,7 +4,7 @@ import com.server.chucked.api.product.domain.entity.Product;
 import lombok.Builder;
 
 /**
- * 이 부분에 대한 처리를 어떻게 해야할 지 고민중...
+ * Domain 1개당 DTO 1개
  */
 public record ProductInternalDto() {
     @Builder
