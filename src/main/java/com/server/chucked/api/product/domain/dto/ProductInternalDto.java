@@ -5,6 +5,7 @@ import lombok.Builder;
 
 /**
  * Domain 1개당 DTO 1개
+ * EndPoint 1개당 Inner Record 1개
  */
 public record ProductInternalDto() {
     @Builder

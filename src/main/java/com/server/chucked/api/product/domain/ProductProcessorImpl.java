@@ -14,6 +14,11 @@ public class ProductProcessorImpl implements ProductProcessor {
     private final ProductRepository productRepository;
 
     @Override
+    public Product get() {
+        return productRepository.findByName("test");
+    }
+
+    @Override
     public ProductInternalDto.Create create(final ProductInternalDto.Create dto) {
         Product product = ProductInternalDto.Create.toEntity(dto);
 

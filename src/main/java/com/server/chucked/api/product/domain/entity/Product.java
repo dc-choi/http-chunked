@@ -14,7 +14,7 @@ import org.hibernate.annotations.Comment;
 @ToString
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Table(name = "product")
+@Table(name = "products")
 public class Product extends BaseEntity {
     @Comment("상품명")
     @Column(name = "name", nullable = false, columnDefinition = "VARCHAR(200)")
@@ -25,6 +25,6 @@ public class Product extends BaseEntity {
     Long price;
 
     @Comment("상품 설명")
-    @Column(name = "comment", nullable = true, columnDefinition = "TEXT")
-    String comment;
+    @Column(name = "description", nullable = true, columnDefinition = "TEXT")
+    String description;
 }

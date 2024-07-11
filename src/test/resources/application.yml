@@ -2,7 +2,7 @@ spring:
   application:
     name: chucked
   profiles:
-    active: local
+    active: test
     group:
       local:
         - file
@@ -13,8 +13,7 @@ logging:
     com.server.chucked: info
     org.springframework.web: debug
     org.hibernate.SQL: debug
-    org.hibernate.type: debug
+    # org.hibernate.type: debug
     org.hibernate.orm.jdbc.bind: trace
-    org.hibernate.orm.jdbc.extract: trace
-    org.springframework.transaction.interceptor: trace
-    org.hibernate.engine.query.spi.HQLQueryPlan: debug
+    # org.hibernate.orm.jdbc.extract: trace
+    # org.springframework.transaction.interceptor: trace

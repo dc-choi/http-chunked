@@ -3,6 +3,7 @@ package com.server.chucked.api.product.application;
 import com.server.chucked.api.product.application.mapstruct.ProductMapstructMapper;
 import com.server.chucked.api.product.domain.ProductProcessor;
 import com.server.chucked.api.product.domain.dto.ProductInternalDto;
+import com.server.chucked.api.product.domain.entity.Product;
 import com.server.chucked.api.product.presentation.dto.CreateProductExternalDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,6 +15,10 @@ import org.springframework.transaction.annotation.Transactional;
 public class ProductService {
     private final ProductMapstructMapper productMapstructMapper;
     private final ProductProcessor productProcessor;
+
+    public Product test() {
+        return productProcessor.get();
+    }
 
     @Transactional
     public CreateProductExternalDto.Response create(final CreateProductExternalDto.Request request) {
