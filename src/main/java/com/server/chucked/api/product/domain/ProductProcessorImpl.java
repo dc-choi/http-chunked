@@ -5,6 +5,8 @@ import com.server.chucked.api.product.domain.entity.Product;
 import com.server.chucked.api.product.domain.persistence.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -14,8 +16,9 @@ public class ProductProcessorImpl implements ProductProcessor {
     private final ProductRepository productRepository;
 
     @Override
-    public Product get() {
-        return productRepository.findByName("test");
+    public Page<Product> findAll(Pageable pageable) {
+//        Pageable pageable = PageRequest.of(page, size);
+        return productRepository.findAll(pageable);
     }
 
     @Override

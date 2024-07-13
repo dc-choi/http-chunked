@@ -44,6 +44,10 @@ dependencies {
     implementation 'org.mapstruct:mapstruct:1.4.2.Final'
     annotationProcessor "org.mapstruct:mapstruct-processor:1.4.2.Final"
     annotationProcessor "org.projectlombok:lombok-mapstruct-binding:0.1.0"
+    // spring cloud
+    // implementation platform("io.awspring.cloud:spring-cloud-aws-dependencies:${"3.1.1"}")
+    // s3
+    // implementation 'io.awspring.cloud:spring-cloud-aws-starter-s3'
 }
 
 tasks.named('test') {

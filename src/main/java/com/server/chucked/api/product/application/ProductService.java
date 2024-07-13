@@ -1,11 +1,15 @@
 package com.server.chucked.api.product.application;
 
+import com.server.chucked.api.product.application.event.CreateProductEvent;
 import com.server.chucked.api.product.application.mapstruct.ProductMapstructMapper;
 import com.server.chucked.api.product.domain.ProductProcessor;
 import com.server.chucked.api.product.domain.dto.ProductInternalDto;
 import com.server.chucked.api.product.domain.entity.Product;
 import com.server.chucked.api.product.presentation.dto.CreateProductExternalDto;
+import com.server.chucked.global.common.Events;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,8 +20,8 @@ public class ProductService {
     private final ProductMapstructMapper productMapstructMapper;
     private final ProductProcessor productProcessor;
 
-    public Product test() {
-        return productProcessor.get();
+    public Page<Product> findAll(Pageable pageable) {
+        return productProcessor.findAll(pageable);
     }
 
     @Transactional
@@ -25,6 +29,11 @@ public class ProductService {
         ProductInternalDto.Create dto = productMapstructMapper.of(request);
 
         ProductInternalDto.Create created = productProcessor.create(dto);
+
+        Events.raise(CreateProductEvent.builder()
+                .type("Product")
+                .message(created.name() + "이 생성되었습니다.")
+                .build());
 
         return productMapstructMapper.of(created);
     }
