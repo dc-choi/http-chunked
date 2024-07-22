@@ -1,5 +1,6 @@
 package com.server.chucked.api.product.application;
 
+import com.server.chucked.api.member.domain.dto.MemberInternalDto;
 import com.server.chucked.api.product.application.event.CreateProductEvent;
 import com.server.chucked.api.product.application.mapstruct.ProductMapstructMapper;
 import com.server.chucked.api.product.domain.ProductProcessor;
@@ -30,11 +31,17 @@ public class ProductService {
 
         ProductInternalDto.Create created = productProcessor.create(dto);
 
+        String message = created.name() + "이 생성되었습니다.";
+
         Events.raise(CreateProductEvent.builder()
                 .type("Product")
-                .message(created.name() + "이 생성되었습니다.")
+                .message(message)
                 .build());
 
-        return productMapstructMapper.of(created);
+        MemberInternalDto.Create memberDto = MemberInternalDto.Create.builder()
+                .email("email")
+                .build();
+
+        return productMapstructMapper.of(created, memberDto, 1L, message);
     }
 }

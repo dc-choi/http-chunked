@@ -5,6 +5,7 @@ import com.server.chucked.api.product.domain.entity.Product;
 import com.server.chucked.api.product.presentation.dto.CreateProductExternalDto;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api")
+@Slf4j
 public class ProductController {
     private final ProductService productService;
 
@@ -51,7 +53,9 @@ public class ProductController {
     public CreateProductExternalDto.Response create(
             @Valid @RequestBody final CreateProductExternalDto.Request request
     ) {
-        return productService.create(request);
+        CreateProductExternalDto.Response response = productService.create(request);
+       log.info(String.valueOf(response));
+        return response;
     }
 
 //    @PostMapping("test2")
